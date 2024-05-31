@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistem Pendukung Keputusan</title>
+  <!-- Bootstrap CSS -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css">
+  <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="{{ url_for('static', filename='car.png') }}" alt="Logo" width="35" height="35" class="d-inline-block align-text-top">
+        OtoPredX
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#predict">Predict</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#cek">Cek Harga</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#profile">Profil Kelompok</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="hero text-center">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <h1>SISTEM PENDUKUNG KEPUTUSAN HARGA JUAL BELI MOBIL BEKAS</h1>
+          <a href="#predict" button class="btn btn-primary mt-3" >Prediksi Harga</a>
+        </div>
+        <div class="col-md-6">
+          <img src="{{ url_for('static', filename='CarDash.png') }}" alt="Mobil" class="img-fluid">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="description">
+    <div class="container">
+      <h2>JUAL BELI MOBIL</h2>
+      <p>Sebuah sistem berbasis web yang menggunakan algoritma regresi ridge untuk memprediksi harga jual mobil. Sistem ini dirancang untuk membantu dealer mobil, penjual individu, dan platform jual beli mobil dalam menentukan harga jual yang optimal dan kompetitif. Dengan memanfaatkan data historis dan fitur-fitur mobil, sistem ini dapat memberikan estimasi harga yang akurat, membantu pengguna dalam membuat keputusan yang lebih baik dan berbasis data.</p>
+      <div class="row car-images">
+        <div class="col-md-4">
+          <div><img src="{{ url_for('static', filename='mobil2.jpg') }}" style="width: 200px; height: 200px;" alt="Mobil 2"></div>
+        </div>
+        <div class="col-md-4">
+          <div><img src="{{ url_for('static', filename='mobil4.jpg') }}" style="width: 200px; height: 200px;" alt="Mobil 3"></div>
+        </div>
+        <div class="col-md-4">
+          <div><img src="{{ url_for('static', filename='mobil5.jpg') }}" style="width: 200px; height: 200px;" alt="Mobil 4"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+        <h2 class="card-title" id="predict">Prediksi Harga Mobil</h2>
+        <form action="/" method="post">
+          <div class="form-group">
+                <label for="Year">Tahun:</label>
+                <input type="text" class="form-control" id="Year" name="Year">
+            </div>
+            <div class="form-group">
+                <label for="Kilometers_Driven">Jarak ditempuh (KM):</label>
+                <input type="text" class="form-control" id="Kilometers_Driven" name="Kilometers_Driven">
+            </div>
+            <div class="form-group">
+                <label for="Fuel_Type">Type Bensin:</label>
+                <select class="form-control" id="Fuel_Type" name="Fuel_Type">
+                    <option value="CNG">CNG</option>
+                    <option value="Diesel">Diesel</option>
+                    <option value="Petrol">Petrol</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="Transmission">Transmisi:</label>
+                <select class="form-control" id="Transmission" name="Transmission">
+                    <option value="Manual">Manual</option>
+                    <option value="Automatic">Automatic</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="Mileage">Mileage:</label>
+                <input type="text" class="form-control" id="Mileage" name="Mileage">
+            </div>
+            <div class="form-group">
+                <label for="Engine">Engine:</label>
+                <input type="text" class="form-control" id="Engine" name="Engine">
+            </div>
+            <div class="form-group">
+                <label for="Power">Tenaga:</label>
+                <input type="text" class="form-control" id="Power" name="Power">
+            </div>
+            <div class="form-group">
+                <label for="Seats">Jumlah tempat duduk:</label>
+                <input type="text" class="form-control" id="Seats" name="Seats">
+            </div>
+            <button type="submit" class="btn btn-primary">Predict</button>
+        </form>
+
+        {% if predicted_price and predicted_lower and predicted_upper %}
+        <div class="mt-4">
+            <h4>Predicted Car Price:</h4>
+            <p>Rp. {{ predicted_price }}</p>
+            <h4>Price Range:</h4>
+            <p>RP. {{ predicted_lower }} - {{ predicted_upper }}</p>
+        </div>
+        {% endif %}
+    </div>
+  </div>
+
+<!-- cek harga Section for recommendation car -->
+  <div class="card">
+      <div class="card-body">
+          <h2 class="card-title" id="cek">Cek Harga</h2>
+          <form action="/filter" method="post" class="mb-3">
+            <div class="form-group">
+                <label for="value">Harga (Float):</label>
+                <input type="number" class="form-control" id="value" name="value" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="priorityFeature">Prioritas Pencarian:</label>
+                <select class="form-control" id="priorityFeature" name="priorityFeature" onchange="showPriorityInput()" required>
+                    <option value="" disabled selected>Pilih salah satu</option>
+                    <option value="Year">Year</option>
+                    <option value="Kilometers_Driven">Kilometers Driven</option>
+                    <option value="Engine">Engine</option>
+                </select>
+            </div>
+            <div class="form-group" id="yearInput" style="display:none;">
+                <label for="priorityYear">Year:</label>
+                <input type="number" class="form-control" id="priorityYear" name="priorityYear">
+            </div>
+            <div class="form-group" id="kilometersInput" style="display:none;">
+                <label for="priorityKilometers">Kilometers Driven:</label>
+                <input type="number" class="form-control" id="priorityKilometers" name="priorityKilometers">
+            </div>
+            <div class="form-group" id="engineInput" style="display:none;">
+                <label for="priorityEngine">Engine:</label>
+                <input type="number" class="form-control" id="priorityEngine" name="priorityEngine">
+            </div>
+            <button type="submit" class="btn btn-primary">Filter</button>
+            <input type="hidden" name="column" value="Price">
+        </form>
+
+          <div class="table-responsive">
+              <table class="table table-bordered">
+                  <thead class="thead-dark">
+                      <tr>
+                          {% for header in headers %}
+                              <th>{{ header }}</th>
+                          {% endfor %}
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {% for row in data %}
+                          <tr>
+                              {% for cell in row %}
+                                  <td>{{ cell }}</td>
+                              {% endfor %}
+                          </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
+          </div>
+      </div>
+  </div>
+  <style>
+    body {
+        background-color: #1B2E41; /* Warna biru tua */
+        overflow-x: hidden; /* Supaya tidak ada scrollbar horizontal */
+        padding-bottom: 20px; /* Tambahkan padding bawah untuk scrolling */
+    }
+    /* Gaya untuk nama dan npm */
+    
+</style>
+</head>
+<body>
+<div class="container mt-3">
+<div class="row justify-content-center">
+    <h1 class="text-center text-white mb-5" id="profile">Anggota Kelompok</h1>
+</div>
+<div class="row justify-content-center">
+    <div class="col-md-4 mb-4">
+        <div class="node text-center">
+            <img src="{{ url_for('static', filename='jerry.jpg') }}" style="max-width: 100px;" alt="Foto" class="img-fluid rounded-circle">
+            <div class="npm">2110631170072</div>
+            <div class="name">Jerry Anggara</div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="node text-center">
+            <img src="{{ url_for('static', filename='fauzi.jpg') }}" style="max-width: 100px;" alt="Foto" class="img-fluid rounded-circle">
+            <div class="npm">2110631170066</div>
+            <div class="name">Fauzi Rahmat Ramadhan</div>
+        </div>
+    </div>
+</div>
+<div class="row justify-content-center">
+    <div class="col-md-4 mb-4">
+        <div class="node text-center">
+            <img src="{{ url_for('static', filename='raka.png') }}" style="max-width: 100px;" alt="Foto" class="img-fluid rounded-circle">
+            <div class="npm" style="margin-top: 30px;">2110631170094</div>
+            <div class="name">Raka Fazah Fithra</div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="node text-center">
+            <img src="{{ url_for('static', filename='fikri.jpg') }}" style="max-width: 100px;"alt="Foto" class="img-fluid rounded-circle">
+            <div class="npm">2110631170043</div>
+            <div class="name">Achmad Fikri Syofian</div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="node text-center">
+            <img src="{{ url_for('static', filename='keith.jpg') }}" style="max-width: 100px;" alt="Foto" class="img-fluid rounded-circle">
+            <div class="npm">2110631170053</div>
+            <div class="name">Apriansa Arwandi Panjaitan</div>
+        </div>
+    </div>
+</div>
+</div>
+<footer class="text-center py-3 mt-5" style="color: white;">
+  <p>Created with <span style="color: red;">🔥</span> by The Boys</p>
+</footer>
+
+  <!-- Bootstrap JS and Popper.js -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+  <script>
+    function showPriorityInput() {
+        var priority = document.getElementById("priorityFeature").value;
+        var yearInput = document.getElementById("yearInput");
+        var kilometersInput = document.getElementById("kilometersInput");
+        var engineInput = document.getElementById("engineInput");
+
+        yearInput.style.display = "none";
+        kilometersInput.style.display = "none";
+        engineInput.style.display = "none";
+
+        if (priority === "Year") {
+            yearInput.style.display = "block";
+        } else if (priority === "Kilometers_Driven") {
+            kilometersInput.style.display = "block";
+        } else if (priority === "Engine") {
+            engineInput.style.display = "block";
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+.navbar {
+    background-color: #1B2E41 !important;
+    padding: 15px 20px;
+  }
+  .navbar-nav .nav-link {
+    color: white !important;
+    margin-right: 20px;
+  }
+  .navbar-brand img {
+    margin-right: 10px;
+  }
+  .nav-item .nav-link i {
+    margin-right: 5px;
+  }
+  .hero {
+    background-color: #f8f9fa;
+    padding: 40px 0;
+  }
+  .hero .btn-primary {
+    background-color: #1B2E41;
+    border-color: #1B2E41;
+  }
+  .hero .btn-primary:hover {
+    background-color: #16334f;
+    border-color: #16334f;
+  }
+  .description {
+    background-color: #1B2E41;
+    color: white;
+    padding: 40px 0;
+    text-align: center;
+  }
+  .description h2 {
+    margin-bottom: 20px;
+  }
+  .description p {
+    margin-bottom: 30px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .car-images img {
+    max-width: 100%;
+    height: auto;
+    border: 1px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px 0;
+
+  }
+
+  .card {
+    padding: 40px;
+    /* Add any additional styling as needed */
+}
+.btn-primary {
+  background-color: #1B2E41;
+  margin-top: 10px;
+  /* Add any additional styling as needed */
+}
+
+.name,
+    .npm {
+        font-weight: bold; /* Membuat teks menjadi tebal */
+        font-size: 15px; /* Mengatur ukuran font menjadi 15px */
+        color: white; /* Warna teks putih */
+        margin-top: 10px;
+    }
+    .gif-corner {
+        position: fixed;
+        width: 100px;
+        height: 100px;
+        z-index: 1000;
+    }
+    .top-left {
+        top: 0;
+        left: 0;
+    }
+    .top-right {
+        top: 0;
+        right: 0;
+    }
+    .bottom-left {
+        bottom: 0;
+        left: 0;
+    }
+    .bottom-right {
+        bottom: 0;
+        right: 0;
+    }
+    .particles-js-canvas-el {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: -1;
+    }
+
+    .slick-slide {
+      margin: 0 5px; /* Ubah nilai margin sesuai dengan keinginan Anda */
+
+    }
